@@ -9,6 +9,8 @@ nunca deixa de ser gerado.
 
 import logging
 import re
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as TempoEsgotado
 
 from pydantic import BaseModel, Field, ValidationError
 
@@ -18,6 +20,8 @@ from app.ml.motor import ResultadoMotor
 from app.schemas import Desvio, PerfilPet, TextoAlerta
 
 log = logging.getLogger(__name__)
+
+_EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="gemini")
 
 NOME_SINAL = {
     "frequencia_cardiaca": "frequência cardíaca",
@@ -197,8 +201,13 @@ class RedatorAlertas:
         cliente = None
         if cfg.gemini_api_key:
             from google import genai
+            from google.genai import types
 
-            cliente = genai.Client(api_key=cfg.gemini_api_key)
+            # Sem novas tentativas: com a cota esgotada (429) é melhor cair logo no template.
+            cliente = genai.Client(
+                api_key=cfg.gemini_api_key,
+                http_options=types.HttpOptions(retry_options=types.HttpRetryOptions(attempts=1)),
+            )
         return cls(cliente=cliente, modelo=cfg.gemini_modelo, timeout_s=cfg.gemini_timeout_s)
 
     @property
@@ -227,14 +236,18 @@ class RedatorAlertas:
         motivo = None
         if usar_llm and self.llm_ativo:
             try:
-                alerta = self._gerar_com_gemini(fatos)
+                # O timeout do SDK nem sempre é respeitado (ex.: cota esgotada), então o
+                # limite é garantido aqui: estourou, o alerta sai na hora com o template.
+                alerta = _EXECUTOR.submit(self._gerar_com_gemini, fatos).result(timeout=self.timeout_s)
                 motivo = validar_texto(alerta, fatos, pet)
                 if motivo is None:
                     return TextoAlerta(**alerta.model_dump(), gerado_por="gemini"), None
                 motivo = f"Texto do Gemini rejeitado pelos guardrails: {motivo}; usado template."
             except ValidationError as erro:
                 motivo = f"Gemini devolveu JSON fora do schema ({erro.error_count()} erro(s)); usado template."
-            except Exception as erro:  # rede, timeout, cota, chave inválida
+            except TempoEsgotado:
+                motivo = f"Gemini não respondeu em {self.timeout_s:.0f} s; usado template."
+            except Exception as erro:  # rede, cota (429), chave inválida
                 motivo = f"Gemini indisponível ({type(erro).__name__}); usado template."
             log.warning(motivo)
 

@@ -20,7 +20,7 @@ class Configuracao:
 def carregar_configuracao() -> Configuracao:
     return Configuracao(
         gemini_api_key=os.getenv("GEMINI_API_KEY") or None,
-        gemini_modelo=os.getenv("GEMINI_MODEL", "gemini-3.5-flash"),
+        gemini_modelo=os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         gemini_timeout_s=float(os.getenv("GEMINI_TIMEOUT_S", "20")),
         chave_servico=os.getenv("AI_SERVICE_KEY") or None,
         caminho_banco=os.getenv("PETPULSE_DB", "petpulse_ai.db"),

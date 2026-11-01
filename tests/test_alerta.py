@@ -97,9 +97,24 @@ def test_texto_do_gemini_rejeitado_cai_no_template(resultado_medio, resposta, tr
 
 
 def test_gemini_fora_do_ar_nao_impede_o_alerta(resultado_medio):
-    texto, motivo = RedatorAlertas(cliente=GeminiFalso(erro=TimeoutError())).redigir(MEL, resultado_medio)
+    texto, motivo = RedatorAlertas(cliente=GeminiFalso(erro=ConnectionError())).redigir(MEL, resultado_medio)
     assert texto.gerado_por == "template"
-    assert "TimeoutError" in motivo
+    assert "ConnectionError" in motivo
+
+
+def test_gemini_lento_cai_no_template_dentro_do_limite(resultado_medio):
+    import time
+
+    class GeminiTravado(GeminiFalso):
+        def _create(self, **kwargs):
+            time.sleep(3)
+            return super()._create(**kwargs)
+
+    inicio = time.perf_counter()
+    texto, motivo = RedatorAlertas(cliente=GeminiTravado(RESPOSTA_BOA), timeout_s=0.5).redigir(MEL, resultado_medio)
+    assert time.perf_counter() - inicio < 2
+    assert texto.gerado_por == "template"
+    assert "não respondeu" in motivo
 
 
 def test_sem_chave_usa_template_sem_motivo(resultado_medio):
