@@ -1,0 +1,23 @@
+# Blueprint do Render para o PetPulse-AI (FastAPI em Docker).
+# Render > New > Blueprint > selecione o repositório. O Render lê este arquivo.
+services:
+  - type: web
+    name: petpulse-ai
+    runtime: docker
+    plan: free
+    region: virginia            # mais perto do Brasil entre as regiões do Render
+    branch: main
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false             # o Render pede o valor na criação (não vai pro Git)
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite
+      - key: GEMINI_TIMEOUT_S
+        value: "20"
+      - key: AI_SERVICE_KEY
+        sync: false     # o Render gera uma chave aleatória; copie para a API Java
+      - key: PETPULSE_DB
+        value: petpulse_ai.db
