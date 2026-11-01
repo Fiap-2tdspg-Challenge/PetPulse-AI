@@ -1,0 +1,89 @@
+[
+  {
+    "id": "E1",
+    "sinais": [
+      "frequencia_cardiaca:acima"
+    ],
+    "petId": 1,
+    "inicio": "2026-10-10T13:00",
+    "horas": 8,
+    "deveAlertar": true,
+    "nivelEsperado": "MEDIO",
+    "descricao": "Taquicardia em repouso: FC 30% acima do padrão do Thor (~107 bpm, abaixo do limite fixo de 180)"
+  },
+  {
+    "id": "E2",
+    "sinais": [
+      "frequencia_cardiaca:acima"
+    ],
+    "petId": 1,
+    "inicio": "2026-10-12T10:20",
+    "horas": 0.1,
+    "deveAlertar": false,
+    "nivelEsperado": null,
+    "descricao": "Artefato de sensor: uma leitura isolada de 205 bpm"
+  },
+  {
+    "id": "E3",
+    "sinais": [
+      "temperatura:acima",
+      "atividade:abaixo"
+    ],
+    "petId": 2,
+    "inicio": "2026-10-09T10:00",
+    "horas": 30,
+    "deveAlertar": false,
+    "nivelEsperado": "BAIXO",
+    "descricao": "Reação vacinal esperada: +0,5 °C e -35% de atividade"
+  },
+  {
+    "id": "E4",
+    "sinais": [
+      "temperatura:acima",
+      "atividade:abaixo",
+      "frequencia_cardiaca:acima"
+    ],
+    "petId": 2,
+    "inicio": "2026-10-13T02:00",
+    "horas": 30,
+    "deveAlertar": true,
+    "nivelEsperado": "ALTO",
+    "descricao": "Febre em repouso com prostração (39,9 °C, -60% de atividade)"
+  },
+  {
+    "id": "E5",
+    "sinais": [
+      "pressao:acima"
+    ],
+    "petId": 3,
+    "inicio": "2026-10-09T08:00",
+    "horas": 60,
+    "deveAlertar": true,
+    "nivelEsperado": "MEDIO",
+    "descricao": "Hipertensão progressiva: pressão sobe até +45 mmHg"
+  },
+  {
+    "id": "E6",
+    "sinais": [
+      "atividade:abaixo"
+    ],
+    "petId": 3,
+    "inicio": "2026-10-13T00:00",
+    "horas": 36,
+    "deveAlertar": true,
+    "nivelEsperado": "MEDIO",
+    "descricao": "Prostração: queda de 55% na movimentação"
+  },
+  {
+    "id": "E7",
+    "sinais": [
+      "frequencia_cardiaca:acima"
+    ],
+    "petId": 4,
+    "inicio": "2026-10-11T15:00",
+    "horas": 7,
+    "deveAlertar": true,
+    "nivelEsperado": "MEDIO",
+    "descricao": "Taquicardia em repouso: FC 38% acima do padrão do Bob (~92 bpm, dentro da faixa populacional)"
+  }
+]

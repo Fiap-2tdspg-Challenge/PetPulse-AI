@@ -1,0 +1,8 @@
+-r requirements.txt
+
+# Testes, avaliação, gráficos e simulador
+pytest>=8.3
+ipykernel>=6.29
+httpx>=0.27
+pandas>=2.2
+matplotlib>=3.9

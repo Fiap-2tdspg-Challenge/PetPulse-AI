@@ -1,0 +1,8 @@
+# Serviço de IA (o que roda em produção)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.9
+numpy>=2.1
+scikit-learn>=1.6
+google-genai>=2.3.0
+python-dotenv>=1.0

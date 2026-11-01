@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.ipynb_checkpoints/
+
+# Banco SQLite local do serviço
+*.db

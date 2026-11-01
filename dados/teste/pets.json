@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "nome": "Thor",
+    "especie": "cao",
+    "raca": "Labrador",
+    "porte": "grande",
+    "idadeAnos": 6,
+    "pesoKg": 32.0,
+    "sexo": "M",
+    "historicoClinico": [
+      {
+        "tipo": "VACINA",
+        "descricao": "V10 (reforço anual)",
+        "data": "2026-03-12"
+      },
+      {
+        "tipo": "CONSULTA",
+        "descricao": "Check-up anual sem alterações",
+        "data": "2026-10-03"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nome": "Mel",
+    "especie": "cao",
+    "raca": "Chihuahua",
+    "porte": "pequeno",
+    "idadeAnos": 11,
+    "pesoKg": 2.8,
+    "sexo": "F",
+    "historicoClinico": [
+      {
+        "tipo": "MEDICAMENTO",
+        "descricao": "Condroitina (suplemento articular)",
+        "data": "2026-10-02",
+        "dataRetorno": "2026-11-02"
+      },
+      {
+        "tipo": "VACINA",
+        "descricao": "Antirrábica",
+        "data": "2026-10-09"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nome": "Nina",
+    "especie": "gato",
+    "raca": "SRD",
+    "porte": "pequeno",
+    "idadeAnos": 4,
+    "pesoKg": 4.2,
+    "sexo": "F",
+    "historicoClinico": [
+      {
+        "tipo": "EXAME",
+        "descricao": "Hemograma de rotina normal",
+        "data": "2026-10-04"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nome": "Bob",
+    "especie": "cao",
+    "raca": "Border Collie",
+    "porte": "medio",
+    "idadeAnos": 3,
+    "pesoKg": 18.0,
+    "sexo": "M",
+    "historicoClinico": []
+  }
+]
