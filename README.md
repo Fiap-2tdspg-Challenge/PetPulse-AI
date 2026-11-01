@@ -89,12 +89,12 @@ Fluxo de uma leitura:
 5. O app mobile mostra o alerta no sino da Home com o selo **"Análise da IA"** e envia notificação local quando o risco é ALTO.
 6. Se o PetPulse-AI não responder (timeout, fora do ar), a API aplica as regras fixas antigas: o tutor nunca fica sem cobertura.
 
-Mudanças nos outros repositórios (Sprint 4):
+Mudanças nos outros repositórios (Sprint 4), publicadas em branches até o grupo fazer o merge na `main`:
 
 | Repositório | Mudança |
 |---|---|
-| [PetPulse-Api](https://github.com/Fiap-2tdspg-Challenge/PetPulse-Api) | Pacote `ai/` (`AiAnalysisClient` com timeout e contingência, DTOs do contrato), `IoTReadingAnalysisService` chamando a IA com deduplicação, `AiServiceProperties`, migration `V8__ai_integration.sql` (coluna `TEMPERATURA`, origem `MOTOR_IA`, tipos `TEMPERATURA`/`ANOMALIA_MULTIVARIADA`), `temperature` e `readingDate` opcionais em `POST /iot-readings` |
-| [PetPulse-mobile](https://github.com/Fiap-2tdspg-Challenge/PetPulse-mobile) | Tipo `MOTOR_IA` e selo "Análise da IA" nos alertas da Home |
+| [PetPulse-Api, branch `sprint4-integracao-ia`](https://github.com/Fiap-2tdspg-Challenge/PetPulse-Api/tree/sprint4-integracao-ia) | Pacote `ai/` (`AiAnalysisClient` com timeout e contingência, DTOs do contrato), `IoTReadingAnalysisService` chamando a IA com deduplicação, `AiServiceProperties`, migration `V8__ai_integration.sql` (coluna `TEMPERATURA`, origem `MOTOR_IA`, tipos `TEMPERATURA`/`ANOMALIA_MULTIVARIADA`), `temperature` e `readingDate` opcionais em `POST /iot-readings`, e testes da integração |
+| [PetPulse-mobile, branch `sprint4-alertas-ia`](https://github.com/Fiap-2tdspg-Challenge/PetPulse-mobile/tree/sprint4-alertas-ia) | Tipo `MOTOR_IA`, selo "Análise da IA" nos alertas da Home e correção da notificação repetida |
 
 ## 4. Tecnologias
 
