@@ -4,11 +4,11 @@ Motor de Inteligência Artificial do **PetPulse** (Challenge FIAP 2026 · CLYVO 
 
 Ele implementa a solução de IA definida na entrega anterior ([`IoT_Ia_Sprint3_Petpulse.docx`](IoT_Ia_Sprint3_Petpulse.docx)): **detecção de anomalias não supervisionada sobre a telemetria da coleira, com baseline individual por pet, e alertas contextuais em linguagem natural**. O motor está integrado à API Java (Oracle) e ao app mobile.
 
-- 🎥 **Vídeo pitch:** _(link do YouTube não listado)_
+- 🎥 **Vídeo pitch:**  [https://youtu.be/FvYc3fQIws8]
 - 📓 **Notebook da demonstração:** [PetPulse_IA_Sprint4.ipynb](PetPulse_IA_Sprint4.ipynb)
 - 📊 **Resultados:** [seção Resultados](#resultados) · [relatório completo](avaliacao/resultados.md)
 - 🧭 **Roteiro do vídeo:** [docs/roteiro_video.md](docs/roteiro_video.md)
-
+- **Link Do Render** [https://youtu.be/FvYc3fQIws8]
 ## Rodar a IA só com a chave do Gemini
 
 [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Fiap-2tdspg-Challenge/PetPulse-AI/blob/main/PetPulse_IA_Sprint4.ipynb)
