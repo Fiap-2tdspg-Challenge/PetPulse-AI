@@ -29,7 +29,6 @@ Para rodar na própria máquina (VS Code com as extensões Python e Jupyter):
 
 - Gabriel Neris Losano — RM564093
 - João Vitor Biribilli Ravelli — RM565594
-- Pedro de Matos Previtali — RM564184
 - Pietro Paranhos Wilhelm — RM561378
 
 ---
