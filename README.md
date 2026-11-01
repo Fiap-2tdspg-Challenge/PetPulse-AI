@@ -48,7 +48,7 @@ A proposta da Sprint 3 era trocar as réguas fixas por **personalização real**
 |---|---|---|
 | **1. Baseline individual dinâmica** | Para cada pet e cada contexto (repouso diurno, repouso noturno, caminhada, corrida), uma regressão linear aprende o valor esperado de FC, temperatura e pressão em função da atividade do momento. A dispersão é medida de forma robusta (mediana/MAD), e a regressão é reajustada sem outliers. A baseline só aprende com dados de **mais de 24 h atrás**, para que um episódio longo não vire "normal". | [`app/ml/baseline.py`](app/ml/baseline.py) |
 | **2. Detecção multivariada de anomalias** | **Isolation Forest** (scikit-learn), um modelo por pet treinado só com o histórico dele (FC, temperatura, pressão, atividade e hora do dia em seno/cosseno). Ele confirma desvios mais sutis (\|z\| ≥ 2 só conta se o IF também marcar a leitura como anômala) e dá o `scoreAnomalia`. Os modelos ficam em cache e são retreinados a cada hora. | [`app/ml/detector.py`](app/ml/detector.py) |
-| **3. Alertas contextuais inteligentes** | **Gemini** (`google-genai`, Interactions API, `gemini-3.5-flash`) recebe só os fatos calculados e devolve JSON validado por **Pydantic** (título, mensagem, recomendação). Guardrails conferem o texto; se algo falhar, entra um template determinístico. | [`app/genai/alerta.py`](app/genai/alerta.py) |
+| **3. Alertas contextuais inteligentes** | **Gemini** (`google-genai`, Interactions API, `gemini-3.5-flash-lite`) recebe só os fatos calculados e devolve JSON validado por **Pydantic** (título, mensagem, recomendação). Guardrails conferem o texto; se algo falhar, entra um template determinístico. | [`app/genai/alerta.py`](app/genai/alerta.py) |
 
 Além dos pilares:
 
@@ -180,8 +180,8 @@ Variáveis de ambiente ([`.env.example`](.env.example)):
 | Variável | Uso |
 |---|---|
 | `GEMINI_API_KEY` | Chave do Google AI Studio. Sem ela, tudo funciona e os textos usam o template. |
-| `GEMINI_MODEL` | Padrão `gemini-3.5-flash` |
-| `GEMINI_TIMEOUT_S` | Tempo máximo de espera pelo Gemini (padrão 20 s; na prática ele responde em ~10 s) |
+| `GEMINI_MODEL` | Padrão `gemini-3.5-flash-lite` (o mesmo do Lab 2: responde em ~2 s e tem cota grátis maior que o `gemini-3.5-flash`) |
+| `GEMINI_TIMEOUT_S` | Tempo máximo de espera pelo Gemini (padrão 20 s). Se estourar ou a cota acabar (erro 429), o alerta sai na hora com o texto padrão |
 | `AI_SERVICE_KEY` | Se definida, exige o header `X-API-Key` (a API Java envia o mesmo valor) |
 
 Com Docker:
@@ -335,6 +335,16 @@ Episódio a episódio:
 - Os 2 alertas fora dos episódios são a tendência de atividade de 24 h logo após o fim de E4/E6, quando a janela ainda contém o episódio.
 
 **Como isso personaliza a experiência do tutor e o acompanhamento contínuo:** o tutor recebe poucos alertas, escritos com o nome do pet e comparando com o padrão *dele* ("31% acima do padrão dele em repouso há cerca de 6 h"), com uma conduta clara para cada nível. A clínica recebe o alerta já com a variação, a duração e o contexto clínico (vacina, medicação), e o histórico de leituras fica guardado para a consulta.
+
+### Evidência no app (teste ponta a ponta)
+
+Rodamos o sistema completo: simulador da coleira → API Java → PetPulse-AI (com Gemini) → Oracle → app mobile no emulador Android. O tutor Armando acompanha o Rex, um Golden Retriever.
+
+| Taquicardia em repouso: alerta MÉDIO no app | Febre com queda de atividade: alerta ALTO vira notificação |
+|---|---|
+| ![Alerta MÉDIO com o selo Análise da IA](docs/prints/app_alerta_medio_taquicardia.png) | ![Notificação do alerta ALTO](docs/prints/app_notificacao_alerta_alto.png) |
+
+Na primeira tela, o alerta de cima é o da IA, com o selo **"Análise da IA"**. O de baixo é um alerta de demonstração antigo, gerado pela regra fixa ("Frequência cardíaca elevada detectada"). Dá para ver a diferença: a IA diz quanto a FC subiu em relação ao padrão do próprio Rex e há quanto tempo.
 
 ## 10. Guardrails e segurança
 
