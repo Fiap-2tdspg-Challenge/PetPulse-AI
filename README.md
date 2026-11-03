@@ -8,7 +8,7 @@ Ele implementa a solução de IA definida na entrega anterior ([`IoT_Ia_Sprint3_
 - 📓 **Notebook da demonstração:** [PetPulse_IA_Sprint4.ipynb](PetPulse_IA_Sprint4.ipynb)
 - 📊 **Resultados:** [seção Resultados](#resultados) · [relatório completo](avaliacao/resultados.md)
 - 🧭 **Roteiro do vídeo:** [docs/roteiro_video.md](docs/roteiro_video.md)
-- **Link Do Render** [https://youtu.be/FvYc3fQIws8]
+- **Link Do Render** [https://petpulse-ai.onrender.com]
 ## Rodar a IA só com a chave do Gemini
 
 [![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Fiap-2tdspg-Challenge/PetPulse-AI/blob/main/PetPulse_IA_Sprint4.ipynb)
